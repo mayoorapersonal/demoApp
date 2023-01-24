@@ -1,0 +1,9 @@
+1. Hibernate generation types - https://www.baeldung.com/hibernate-identifiers
+2. Documentation -
+	- http://localhost:8080/demoApp-docs
+	- http://localhost:8080/swagger-ui.html 
+	- https://springdoc.org/v2/
+	
+3. Association 
+	- https://www.baeldung.com/jpa-one-to-one
+	- https://www.kindsonthegenius.com/relationships-in-hibernate-with-springbootonetomany-and-manytoone/
