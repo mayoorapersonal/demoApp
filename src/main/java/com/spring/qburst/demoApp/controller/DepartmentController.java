@@ -20,8 +20,11 @@ import com.spring.qburst.demoApp.model.Student;
 import com.spring.qburst.demoApp.repository.DepartmentRepository;
 import com.spring.qburst.demoApp.service.DepartmentService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 @RestController
 @RequestMapping("/department")
+@SecurityRequirement(name = "bearerAuth")
 public class DepartmentController {
 
 	@Autowired
@@ -52,4 +55,15 @@ public class DepartmentController {
 		return departmentService.getStudentByDepartments(deptId);
 	}
 	
+//	@GetMapping("/studentByDept/{deptId}")
+//	public List<Department> getStudentByDepartment(@PathVariable("deptId") Integer deptId){
+//		return departmentService.getStudentByDepartments(deptId);
+//	}
+	
+	@GetMapping("/departments")
+	public List<Department> getGivenDepartment(@RequestParam("deptNames") String[] deptNames){
+		
+		System.out.println("Department names : " + deptNames);
+		return departmentRepository.findAllDepartent(deptNames);
+	}
 }

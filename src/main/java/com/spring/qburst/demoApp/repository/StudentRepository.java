@@ -1,12 +1,15 @@
 package com.spring.qburst.demoApp.repository;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.spring.qburst.demoApp.model.Department;
 import com.spring.qburst.demoApp.model.DepartmentDto;
 import com.spring.qburst.demoApp.model.Student;
 
@@ -22,5 +25,9 @@ public interface StudentRepository extends JpaRepository<Student, Integer>{
 			+ " AND (:lastName is null or s.lastName like %:lastName%)")
 	List<DepartmentDto> studentSearchQuery(@Param("deptId") Integer deptId, @Param("deptName") String deptName,
 			@Param("firstName") String firstName, @Param("lastName") String lastName, Pageable pagination);
+
+	@Query("select new com.spring.qburst.demoApp.model.DepartmentDto(s.id as studentId, s.firstName as firstName, s.lastName as lastName) "
+			+ "from #{#entityName} s")
+	List<DepartmentDto> findAllStudents(Sort sortParam);
 
 }

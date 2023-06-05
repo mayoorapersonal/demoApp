@@ -7,7 +7,10 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
+import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -28,13 +31,18 @@ public class SecurityConfiguration {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		
+		//OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
+		
 		http.csrf().disable()
 			.authorizeHttpRequests()
-			.requestMatchers("/api/v1/auth/**")
+			.requestMatchers("/api/v1/auth/**", "/demoApp-docs/**", "/swagger-ui/**", "/webjars/**",
+					"/configuration/ui", "/swagger-resources", "/configuration/security", "/actuator/**")
 			.permitAll()
 			.anyRequest()
 			.authenticated()
 			.and()
+			//.oauth2ResourceServer()
+			//.and()
 			.sessionManagement()
 			.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and()
@@ -44,4 +52,6 @@ public class SecurityConfiguration {
 		return http.build();
 		
 	}
+	
+	
 }

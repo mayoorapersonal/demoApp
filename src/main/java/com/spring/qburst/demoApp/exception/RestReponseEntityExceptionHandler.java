@@ -12,5 +12,10 @@ public class RestReponseEntityExceptionHandler extends ResponseEntityExceptionHa
 	@ExceptionHandler(value = StudentException.class)
 	 public ResponseEntity<Object> exception(StudentException exception) {
 	      return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
-	 }
+	 } 
+	
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<Object> handleAllExceptions(Exception ex){
+		return new ResponseEntity<Object>(ex.getMessage(), HttpStatus.NOT_FOUND);
+	}
 }

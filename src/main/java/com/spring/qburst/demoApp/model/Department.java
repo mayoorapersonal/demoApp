@@ -17,10 +17,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name="department")
 @JsonIdentityInfo(scope = Department.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Department {

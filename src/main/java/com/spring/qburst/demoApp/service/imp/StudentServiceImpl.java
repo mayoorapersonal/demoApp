@@ -33,12 +33,18 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public Student saveStudentDetails(Student student) {
 		
-		try {
-			 studentRepository.save(student);
-		} catch (Exception e) {
-			throw new StudentException(messageSource.getMessage("ERR_STUDENT", null, studentError, null));
-		}
-		return student;
+		//try {
+			Student d = studentRepository.save(student);
+			
+			System.out.println(d.getDepartment().getName());
+			
+			Student d1 = studentRepository.findById(d.getId()).get();
+			System.out.println(d1.getDepartment().getName());
+			
+//		} catch (Exception e) {
+//			throw new StudentException(messageSource.getMessage("ERR_STUDENT", null, studentError, null));
+//		}
+		return d;
 	}
 
 	@Override
@@ -70,6 +76,7 @@ public class StudentServiceImpl implements StudentService {
 		try {
 			studentRepository.findById(id).orElseThrow(() -> new StudentException(studentError));
 		} catch (StudentException e) {
+			e.printStackTrace();
 			throw new StudentException(e.getMessage());
 		}
 		

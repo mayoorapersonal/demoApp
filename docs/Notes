@@ -3,7 +3,30 @@
 	- http://localhost:8080/demoApp-docs
 	- http://localhost:8080/swagger-ui.html 
 	- https://springdoc.org/v2/
+	- https://www.baeldung.com/openapi-jwt-authentication
+	- https://www.baeldung.com/spring-rest-openapi-documentation
+	- https://blog.tericcabrel.com/spring-boot-rest-api-swagger-openapi/
 	
 3. Association 
 	- https://www.baeldung.com/jpa-one-to-one
 	- https://www.kindsonthegenius.com/relationships-in-hibernate-with-springbootonetomany-and-manytoone/
+
+4. Junit
+	- https://www.baeldung.com/junit-5
+	- https://www.baeldung.com/junit-5-migration
+	
+5. Mockito
+	::: Mockito is an open-source test automation framework that internally uses Java Reflection API to create mock objects. 
+		Mock objects are dummy objects used for actual implementation. The main purpose of using a dummy object is to simplify 
+		the development of a test by mocking external dependencies and using them in the code.
+		you should mock objects in unit tests when the real object has a non-deterministic behavior or the real object is a 
+		callback function or the real object is yet to be implemented.
+	-	https://www.lambdatest.com/blog/junit5-mockito-tutorial/
+
+4. Java Features
+	* Optional Class
+		- https://medium.com/swlh/how-to-write-better-code-with-java-8s-optional-b6d862f28862
+
+5. Custom message using messagesource
+  - https://www.javadevjournal.com/spring-boot/spring-custom-validation-message-source/
+	

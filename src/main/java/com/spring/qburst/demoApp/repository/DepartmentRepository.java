@@ -1,5 +1,6 @@
 package com.spring.qburst.demoApp.repository;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,5 +16,7 @@ public interface DepartmentRepository extends JpaRepository<Department, Integer>
 	@Query("select d from Department d where d.id = :deptId")
 	List<Department> getStudentByDepartment(@Param("deptId") Integer deptId);
 	
-	
+
+	@Query("select d from Department d where d.name in :name")
+	List<Department> findAllDepartent(@Param("name") String[] deptName);
 }

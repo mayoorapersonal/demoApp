@@ -1,8 +1,10 @@
 package com.spring.qburst.demoApp.controller;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -25,14 +27,21 @@ import com.spring.qburst.demoApp.model.Student;
 import com.spring.qburst.demoApp.repository.StudentRepository;
 import com.spring.qburst.demoApp.service.StudentService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 @RestController
 @RequestMapping("/student")
+@SecurityRequirement(name = "bearerAuth")
 public class StudentController {
 	
 	@Autowired
 	private StudentService studentService;
 	@Autowired
 	private StudentRepository studentRepository;
+	
+	@Autowired
+	private Environment environment;
 	
 	//localhost:8080/student/helloStudent
 	@GetMapping("/hello")
@@ -52,7 +61,12 @@ public class StudentController {
 	@GetMapping("/getStudentList")
 	public List<Student> getStudentList(){
 		
-		return studentService.getStudentList();
+		Student s = studentRepository.findById(7).get();
+		System.out.println(s.getDepartment().getName());
+		
+		List<Student> list = studentService.getStudentList();
+		
+		return list;
 	}
 	
 	@PutMapping("/updateStudent")
@@ -64,9 +78,10 @@ public class StudentController {
 	@DeleteMapping("/deleteStudentById/{id}")
 	public ResponseEntity<String> deleteStudentById(@PathVariable(name="id") int id) {
 		studentService.deleteByStudentId(id);
-		return new ResponseEntity<String>("Successfully deleted employee !!!", HttpStatus.OK);
+		return new ResponseEntity<>("Successfully deleted employee !!!", HttpStatus.OK);
 	}
 	
+	@Operation(summary = "This")
 	@GetMapping("/studentSearch")
 	public List<DepartmentDto> getStudentsByDepartment(@RequestParam(name = "deptId", required = false) Integer deptId,
 			@RequestParam(name = "deptName", required = false) String deptName,
@@ -84,4 +99,20 @@ public class StudentController {
 		return studentRepository.studentSearchQuery(deptId, deptName, firstName, lastName, pagination);
 
 	}
+	
+	@GetMapping("/getActiveProfiles")
+	public String[] getProfiles() {
+		
+		String[] profiles = environment.getActiveProfiles();
+		Stream.of(profiles).forEach(System.out::println);
+		return profiles;
+	}
+	
+	@GetMapping("/sortStudents")
+	public List<DepartmentDto> sortStudent() {
+		
+		List<DepartmentDto> studentList = studentRepository.findAllStudents(Sort.by("firstName"));
+		return studentList;
+	}
+	
 }
